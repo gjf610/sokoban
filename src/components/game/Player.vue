@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import keepImg from '../../assets/keeper.png'
 import { usePlayerStore } from '../../store/player'
+import { usePosition } from '../../composables/usePosition';
 
-const { position } = usePosition()
+useMove()
+const { player } = usePlayerStore()
+const { position } = usePosition(player)
 
 function useMove() {
   const {
@@ -37,21 +40,8 @@ function useMove() {
     window.removeEventListener('keyup', handleKeyUp)
   })
 }
-useMove()
 
-function usePosition() {
-  const { player } = usePlayerStore()
-  const STEP = 32
-  const position = computed(() => {
-    return {
-      left: player.x * STEP + 'px',
-      top: player.y * STEP + 'px',
-    }
-  })
-  return {
-    position
-  }
-}
+
 
 </script>
 
