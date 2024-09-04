@@ -4,9 +4,11 @@ import { reactive } from "vue";
 import { useMapStore } from "./map";
 import { useTargetStore } from "./target";
 
+let Id = 1
 export interface Cargo {
   x: number;
   y: number;
+  id: number;
   onTarget: boolean;
 }
 export const useCargoStore = defineStore('cargo', () => {
@@ -18,6 +20,7 @@ export const useCargoStore = defineStore('cargo', () => {
     return {
       x,
       y,
+      id: Id++,
       onTarget: false
     }
   }
@@ -47,11 +50,15 @@ export const useCargoStore = defineStore('cargo', () => {
     const { findTarget } = useTargetStore()
     cargo.onTarget = !!findTarget(cargo);
   }
+  function cleanAllCargos() {
+    cargos.splice(0, cargos.length)
+  }
   return {
     cargos,
     addCargo,
     createCargo,
     findCargo,
-    moveCargo
+    moveCargo,
+    cleanAllCargos
   }
 })
