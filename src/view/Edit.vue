@@ -6,10 +6,13 @@
       </div>
       <div>数据展示区</div>
     </div>
-    <div>元数选择区</div>
+    <div>
+      <EditElementView />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import MapEdit from '@/components/edit/MapEdit.vue'
+import EditElementView from '@/components/edit/EditElementView.vue'
 </script>
