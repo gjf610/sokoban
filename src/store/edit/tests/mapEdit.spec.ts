@@ -1,5 +1,5 @@
 import { createPinia, setActivePinia } from 'pinia'
-import { beforeEach, it, expect, describe, vi } from 'vitest'
+import { beforeEach, it, expect, describe } from 'vitest'
 import { useMapEditStore } from '../mapEdit'
 
 describe('map edit', () => {
