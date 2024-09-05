@@ -13,6 +13,8 @@
     <div class="flex m-2 space-x-2">
       <h4>玩家: </h4>
       <EditElement :edit-element="playerEditElement" />
+      <EditElement :edit-element="cargoEditElement" />
+
     </div>
     <div>当前选择的：{{ selectedEditElementName }}</div>
   </div>
@@ -20,7 +22,13 @@
 <script lang="ts" setup>
 import { computed, toRefs, watchEffect } from 'vue';
 import EditElement from './EditElement.vue';
-import { wallEditElement, floorEditElement, playerEditElement, useEditElementStore } from '@/store/edit/editElement.ts'
+import {
+  wallEditElement,
+  floorEditElement,
+  playerEditElement,
+  cargoEditElement,
+  useEditElementStore
+} from '@/store/edit/editElement.ts'
 import { useMapEditStore } from "@/store/edit/mapEdit";
 
 

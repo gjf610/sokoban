@@ -5,8 +5,10 @@ import { useMapEditStore } from './mapEdit'
 import FloorImg from '@/assets/floor.png'
 import wallImg from '@/assets/wall.png'
 import keepImg from '@/assets/keeper.png'
+import cargoImg from '@/assets/cargo.png'
 import { useEditPlayerStore } from './editPlayer'
 import { ref } from 'vue'
+import { useEditCargoStore } from './editCargo'
 export interface EditElement {
   img: string;
   name: string;
@@ -40,7 +42,15 @@ export const playerEditElement: EditElement = {
     player.y = position.y
   },
 }
+export const cargoEditElement: EditElement = {
+  img: cargoImg,
+  name: '箱子',
+  execute(position) {
+    const { addCargo, createCargo } = useEditCargoStore()
 
+    addCargo(createCargo({ x: position.x, y: position.y }))
+  },
+}
 export const useEditElementStore = defineStore('editElement', () => {
   let currentSelectedEditElement = ref<EditElement | undefined>();
 

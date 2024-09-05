@@ -1,9 +1,10 @@
 import { it, expect, describe, beforeEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia';
-import { floorEditElement, useEditElementStore, wallEditElement, playerEditElement } from '../editElement';
+import { floorEditElement, useEditElementStore, wallEditElement, playerEditElement, cargoEditElement } from '../editElement';
 import { useMapEditStore } from '../mapEdit';
 import { MapTile } from '@/store/map';
 import { useEditPlayerStore } from '../editPlayer';
+import { useEditCargoStore } from '../editCargo';
 
 describe('editElement', () => {
   beforeEach(() => {
@@ -19,7 +20,7 @@ describe('editElement', () => {
 
     setCurrentSelectedEditElement(wallEditElement)
 
-    getCurrentSelectedEditElement().execute({ x: 1, y: 1 })
+    getCurrentSelectedEditElement()!.execute({ x: 1, y: 1 })
 
     expect(map[1][1]).toBe(MapTile.WALL)
   })
@@ -29,7 +30,7 @@ describe('editElement', () => {
 
     setCurrentSelectedEditElement(floorEditElement)
 
-    getCurrentSelectedEditElement().execute({ x: 1, y: 1 })
+    getCurrentSelectedEditElement()!.execute({ x: 1, y: 1 })
 
     expect(map[1][1]).toBe(MapTile.FLOOR)
   })
@@ -44,10 +45,27 @@ describe('editElement', () => {
       y: 1
     }
 
-    getCurrentSelectedEditElement().execute({ x: position.x, y: position.y })
+    getCurrentSelectedEditElement()!.execute(position)
 
     expect(player.x).toBe(position.x)
     expect(player.y).toBe(position.y)
+
+  })
+  it('should add cargo when current selector element is cargo', () => {
+    const { cargos } = useEditCargoStore()
+    const { getCurrentSelectedEditElement, setCurrentSelectedEditElement } = useEditElementStore()
+
+    setCurrentSelectedEditElement(cargoEditElement)
+
+    const position = {
+      x: 1,
+      y: 1
+    }
+
+    getCurrentSelectedEditElement()!.execute(position)
+
+    expect(cargos[0].x).toBe(position.x)
+    expect(cargos[0].y).toBe(position.y)
 
   })
 })
