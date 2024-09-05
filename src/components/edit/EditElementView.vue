@@ -14,17 +14,20 @@
       <h4>玩家: </h4>
       <EditElement :edit-element="playerEditElement" />
     </div>
+    <div>当前选择的：{{ selectedEditElementName }}</div>
   </div>
 </template>
 <script lang="ts" setup>
-import { toRefs, watchEffect } from 'vue';
+import { computed, toRefs, watchEffect } from 'vue';
 import EditElement from './EditElement.vue';
-import { wallEditElement, floorEditElement, playerEditElement } from '@/store/edit/editElement.ts'
+import { wallEditElement, floorEditElement, playerEditElement, useEditElementStore } from '@/store/edit/editElement.ts'
 import { useMapEditStore } from "@/store/edit/mapEdit";
 
 
 const { initMap, updateMapRow, updateMapCol } = useMapEditStore()
 const { col, row } = toRefs(useMapEditStore())
+const { getCurrentSelectedEditElement } = useEditElementStore()
+
 initMap()
 
 watchEffect(() => {
@@ -35,5 +38,14 @@ watchEffect(() => {
 watchEffect(() => {
   if (!col.value) return
   updateMapCol()
+})
+
+
+const selectedEditElementName = computed(() => {
+  if (!getCurrentSelectedEditElement()) {
+    return '没有选择'
+  }
+
+  return getCurrentSelectedEditElement().name
 })
 </script>
