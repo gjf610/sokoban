@@ -6,14 +6,14 @@
       <div>col: <input type="text" class="border border-1" v-model="col"></div>
     </div>
     <div class="flex m-2 space-x-2">
-      <h4>地图: </h4>
       <EditElement :edit-element="wallEditElement" />
       <EditElement :edit-element="floorEditElement" />
     </div>
     <div class="flex m-2 space-x-2">
-      <h4>玩家: </h4>
+
       <EditElement :edit-element="playerEditElement" />
       <EditElement :edit-element="cargoEditElement" />
+      <EditElement :edit-element="targetEditElement" />
 
     </div>
     <div>当前选择的：{{ selectedEditElementName }}</div>
@@ -27,6 +27,7 @@ import {
   floorEditElement,
   playerEditElement,
   cargoEditElement,
+  targetEditElement,
   useEditElementStore
 } from '@/store/edit/editElement.ts'
 import { useMapEditStore } from "@/store/edit/mapEdit";

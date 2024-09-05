@@ -1,10 +1,11 @@
 import { it, expect, describe, beforeEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia';
-import { floorEditElement, useEditElementStore, wallEditElement, playerEditElement, cargoEditElement } from '../editElement';
+import { floorEditElement, useEditElementStore, wallEditElement, playerEditElement, cargoEditElement, targetEditElement } from '../editElement';
 import { useMapEditStore } from '../mapEdit';
 import { MapTile } from '@/store/map';
 import { useEditPlayerStore } from '../editPlayer';
 import { useEditCargoStore } from '../editCargo';
+import { useEditTargetStore } from '../editTarget';
 
 describe('editElement', () => {
   beforeEach(() => {
@@ -66,6 +67,24 @@ describe('editElement', () => {
 
     expect(cargos[0].x).toBe(position.x)
     expect(cargos[0].y).toBe(position.y)
+
+  })
+
+  it('should add target when current selector element is target', () => {
+    const { targets } = useEditTargetStore()
+    const { getCurrentSelectedEditElement, setCurrentSelectedEditElement } = useEditElementStore()
+
+    setCurrentSelectedEditElement(targetEditElement)
+
+    const position = {
+      x: 1,
+      y: 1
+    }
+    console.log(targets)
+    getCurrentSelectedEditElement()!.execute(position)
+
+    expect(targets[0].x).toBe(position.x)
+    expect(targets[0].y).toBe(position.y)
 
   })
 })

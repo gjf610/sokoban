@@ -11,7 +11,7 @@ import { useEditCargoStore, type EditCargo } from '@/store/edit/editCargo';
 
 
 interface Props {
-  cargo: any
+  cargo: EditCargo
 }
 
 const props = defineProps<Props>()
