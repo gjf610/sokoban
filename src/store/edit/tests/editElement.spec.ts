@@ -1,8 +1,9 @@
 import { it, expect, describe, beforeEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia';
-import { floorEditElement, useEditElementStore, wallEditElement } from '../editElement';
+import { floorEditElement, useEditElementStore, wallEditElement, playerEditElement } from '../editElement';
 import { useMapEditStore } from '../mapEdit';
 import { MapTile } from '@/store/map';
+import { useEditPlayerStore } from '../editPlayer';
 
 describe('editElement', () => {
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe('editElement', () => {
 
     expect(map[1][1]).toBe(MapTile.WALL)
   })
-  it('should change to the floor element when current selector element is wall', () => {
+  it('should change to the floor element when current selector element is floor', () => {
     const { map } = useMapEditStore()
     const { getCurrentSelectedEditElement, setCurrentSelectedEditElement } = useEditElementStore()
 
@@ -31,5 +32,22 @@ describe('editElement', () => {
     getCurrentSelectedEditElement().execute({ x: 1, y: 1 })
 
     expect(map[1][1]).toBe(MapTile.FLOOR)
+  })
+  it('should update position of player when current selector element is play', () => {
+    const { player } = useEditPlayerStore()
+    const { getCurrentSelectedEditElement, setCurrentSelectedEditElement } = useEditElementStore()
+
+    setCurrentSelectedEditElement(playerEditElement)
+
+    const position = {
+      x: 1,
+      y: 1
+    }
+
+    getCurrentSelectedEditElement().execute({ x: position.x, y: position.y })
+
+    expect(player.x).toBe(position.x)
+    expect(player.y).toBe(position.y)
+
   })
 })

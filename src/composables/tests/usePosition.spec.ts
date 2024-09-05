@@ -1,5 +1,5 @@
 import { it, expect, describe } from 'vitest'
-import { usePosition } from '../usePosition'
+import { STEP_EDIT, usePosition } from '../usePosition'
 
 describe('use position', () => {
   it('should return position', () => {
@@ -26,6 +26,18 @@ describe('use position', () => {
     expect(position.value).toEqual({
       left: "64px",
       top: "32px"
+    })
+  })
+  it('should set step', () => {
+    const pos = {
+      x: 1,
+      y: 1
+    }
+    const { position } = usePosition(pos, STEP_EDIT)
+
+    expect(position.value).toEqual({
+      left: "34px",
+      top: "34px"
     })
   })
 })
