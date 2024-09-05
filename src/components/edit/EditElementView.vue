@@ -13,11 +13,23 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { toRefs, watchEffect } from 'vue';
 import EditElement from './EditElement.vue';
 import { wallEditElement, floorEditElement } from '@/store/edit/editElement.ts'
 import { useMapEditStore } from "@/store/edit/mapEdit";
 
-const { col, row, initMap } = useMapEditStore()
 
+const { initMap, updateMapRow, updateMapCol } = useMapEditStore()
+const { col, row } = toRefs(useMapEditStore())
 initMap()
+
+watchEffect(() => {
+  if (!row.value) return
+  updateMapRow()
+})
+
+watchEffect(() => {
+  if (!col.value) return
+  updateMapCol()
+})
 </script>
