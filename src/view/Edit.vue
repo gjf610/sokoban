@@ -11,7 +11,9 @@
           <EditTarget :target="target" />
         </template>
       </div>
-      <div>数据展示区</div>
+      <div>
+        <DataDisplayer />
+      </div>
     </div>
     <div>
       <EditElementView />
@@ -21,6 +23,7 @@
 
 <script lang="ts" setup>
 import MapEdit from '@/components/edit/MapEdit.vue'
+import DataDisplayer from "@/components/edit/DataDisplayer.vue";
 import EditElementView from '@/components/edit/EditElementView.vue'
 import EditPlayer from '@/components/edit/EditPlayer.vue'
 import EditCargo from '@/components/edit/EditCargo.vue';

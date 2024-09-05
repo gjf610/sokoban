@@ -55,6 +55,6 @@ const selectedEditElementName = computed(() => {
     return '没有选择'
   }
 
-  return getCurrentSelectedEditElement().name
+  return getCurrentSelectedEditElement()!.name
 })
 </script>
