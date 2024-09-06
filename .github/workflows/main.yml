@@ -1,4 +1,4 @@
-name: Deploy to github Pages
+name: Deploy to GitHub Pages
 
 on:
   # 仅在推送到默认分支时运行。
@@ -19,9 +19,6 @@ concurrency:
   group: 'pages'
   cancel-in-progress: true
 
-# ----分割线：上面的内容与静态网址是一样的，一般不用改-----
-
-
 jobs:
   deploy:
     environment:
@@ -30,8 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 9.8.0
 
@@ -55,8 +54,10 @@ jobs:
         with:
           # Upload dist repository
           path: './dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2  
+        uses: actions/deploy-pages@v2
+
 
     
