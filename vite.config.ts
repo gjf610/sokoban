@@ -7,6 +7,7 @@ export default defineConfig({
     environment: 'happy-dom'
   },
   plugins: [vue()],
+  base: '/github-actions-deploy-dynamic/',
   resolve: {
     alias: {
       '@': `/src`
